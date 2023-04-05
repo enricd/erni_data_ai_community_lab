@@ -1,4 +1,5 @@
 import streamlit as st
+from pathlib import Path
 
 from projects.home.definitions import streamlit_description
 
@@ -16,7 +17,15 @@ def main():
         }
     )
 
-    st.title("🧪📈 The ERNI Data & AI Community Lab 🤖🧠")
+    #st.title("🧪📈 The ERNI Data & AI Community Lab 🤖🧠")
+
+    with st.sidebar:
+        st.info("Click any of the above Projects to check it!", icon="⬆️")
+
+    # Using the README.md file as the main page
+    st.markdown((Path(__file__).parents[0]/"README.md").read_text("utf-8"),
+        unsafe_allow_html=True
+        )
 
     cols = st.columns((2, 1, 6))
 
