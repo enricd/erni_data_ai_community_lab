@@ -23,7 +23,7 @@ def main():
         st.info("Click any of the above Projects to check it!", icon="⬆️")
 
     # Using the README.md file as the main page
-    st.markdown((Path(__file__).parents[0]/"README.md").read_text("utf-8"),
+    st.markdown((Path(__file__).parents[0]/"readme.md").read_text("utf-8"),
         unsafe_allow_html=True
         )
 
