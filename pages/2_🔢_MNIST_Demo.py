@@ -33,7 +33,7 @@ st.markdown("#")
 model = load_model()
 
 
-cols = st.columns((2,8,1,8,1,5,2))
+cols = st.columns((2,8,2,8,2,5,2))
 
 with cols[1]:
     # Draw a number on the canvas
@@ -43,6 +43,12 @@ with cols[1]:
         st.write(image_raw.shape)
         if np.sum(image_raw[:, :, 0:3]) == 0:
             image_raw = None
+
+with cols[2]:
+    st.markdown("#")
+    st.markdown("#")
+    st.markdown("#")
+    st.markdown("# ➡️")
 
 with cols[3]:
     # Downscale the numpy image to 28x28 pixels
@@ -59,14 +65,20 @@ with cols[3]:
         # Convert the image to a numpy array
         np_image = np.array(image)
 
+with cols[4]:
+    st.markdown("#")
+    st.markdown("#")
+    st.markdown("#")
+    st.markdown("# ➡️")
+
 with cols[5]:
     # Prediction
     st.write("🤖 Prediction:")
     if image_raw is not None:
         pred, prob = predict(model, np_image)
-        st.info(f"### MLP: {pred}")
+        st.info(f"### MLP: {pred} ({prob:.2f}%)")
         #st.info(f"### MLP: {pred} ({prob:.2f}%)")
-        st.metric("**MLP Model**", f"{pred} ({prob:.2f}%)")
+        #st.metric("**MLP Model**", f"{pred} ({prob:.2f}%)")
 
         # TODO: add a CNN model
 
