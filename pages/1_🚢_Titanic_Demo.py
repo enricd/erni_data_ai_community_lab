@@ -35,7 +35,8 @@ def main():
         initial_sidebar_state="expanded",
         menu_items={
             "Report a bug": "https://github.com/enricd",
-            "About": "This is a Streamlit app made by the ERNI's Data & AI Community."
+            "About": """This is a demo Streamlit app made by Enric Domingo for the ERNI's Data and AI Community.
+                        \nCode: https://github.com/enricd/erni_data_ai_community_lab/"""
         }
     )
 

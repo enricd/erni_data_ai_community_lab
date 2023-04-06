@@ -13,16 +13,17 @@ def main():
         initial_sidebar_state="expanded",
         menu_items={
             "Report a bug": "https://github.com/enricd",
-            "About": "This is a demo Streamlit app made by Enric Domingo for the ERNI's Data and AI Community."
+            "About": """This is a demo Streamlit app made by Enric Domingo for the ERNI's Data and AI Community.
+                        \nCode: https://github.com/enricd/erni_data_ai_community_lab/"""
         }
     )
 
     #st.title("🧪📈 The ERNI Data & AI Community Lab 🤖🧠")
 
     with st.sidebar:
-        st.info("Click any of the above Projects to check it!", icon="⬆️")
+        st.info("Check any of the projects above!", icon="⬆️")
 
-    # Using the README.md file as the main page
+    # Using the README.md file as the main page intro
     st.markdown((Path(__file__).parents[0]/"readme.md").read_text("utf-8"),
         unsafe_allow_html=True
         )

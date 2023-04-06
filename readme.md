@@ -1,4 +1,5 @@
-# Welcome to the ERNI Data & AI Community Lab
+## Welcome to the 
+# 🧪📈 ERNI Data & AI Community Lab 🤖🧠
 
 [![ai-data-lab-link][ai-data-lab-badge]][ai-data-lab-link] [![github-repo-link][github-repo-badge]][github-repo-link]
 
@@ -24,9 +25,9 @@ If you are from the ERNI Data and AI Community and you want to be a regular Cont
     
 3. Create a new branch with your name and the topic you want to work on, for example: `John-Cats-vs-Dogs-Classifier`
     
-4. Create a new folder under `projects/`  for your project, for example: `projects/john-cats-vs-dogs-classifier/`. Here you will be able to develop your app functions, utils, store images, light models and light datasets, etc.
+4. Create a new folder under `projects/`  for your project, for example: `projects/cats-vs-dogs-classifier/`. Here you will be able to develop your app functions, utils, store images, light models and light datasets, etc.
     
-5. Create a new python file for your Streamlit app, for example: `pages/4-john-cats-vs-dogs-classifier.py`. This will be the entry point for your app, you can define the layout and main parts of your app in this file.
+5. Create a new python file for your Streamlit app, for example: `pages/4-🐱-cats-vs-dogs-classifier.py`. This will be the entry point for your app, you can define the layout and main parts of your app in this file.
     
 6. At any moment you can test your app by running the Streamlit server locally:
     
@@ -44,7 +45,7 @@ You can find more info, documentation and tutorials about Streamlit in the [Stre
 Please, be respectful and follow the [Code of Conduct](https://github.com/enricd/erni_data_ai_community_lab/docs/CODE_OF_CONDUCT.md) when contributing to this project.
 
 
-[ai-data-lab-badge]: https://img.shields.io/badge/Web-🧪%20Data%20AI%20Lab-orange
+[ai-data-lab-badge]: https://img.shields.io/badge/Web-%20Data%20AI%20Lab🧪-orange
 [ai-data-lab-link]: https://erni-data-ai-lab.streamlit.app/
 
 [github-repo-badge]: https://img.shields.io/badge/Repo-GitHub-white
