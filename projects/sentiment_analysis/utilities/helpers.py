@@ -29,7 +29,7 @@ def tweet_cleaner(raw_text):
     text = re.sub(r'[^a-zA-Z0-9\s]+', '', text)
     text=emoji_pattern.sub(r'',text)
     text = text.lower()
-    text = text.replace('\n', '')
+    text = text.replace('\n', ' ')
     return  pd.Series([text])
 
 
