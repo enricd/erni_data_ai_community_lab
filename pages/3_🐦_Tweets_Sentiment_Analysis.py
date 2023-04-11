@@ -1,4 +1,7 @@
 import streamlit as st
+import matplotlib.pyplot as plt
+
+from projects.sentiment_analysis.utilities.helpers import create_wordcloud, count_values_in_column
 from projects.sentiment_analysis.utilities.definitions import *
 from projects.sentiment_analysis.models.twitter_sentiment_model import TwitterSentimentAnalyzer as TSA
 
@@ -49,15 +52,51 @@ def main():
         st.subheader("Sentiment Analysis:")
         model_cols = st.columns(3)
         with model_cols[0]:
+            st.markdown("#### Form")
             with st.form("Enter the data and click submit to start the analysis"):
                 hashtag = st.text_input("Hashtag")
                 number_of_tweets = st.number_input("Number of tweets", min_value=1, max_value=1000, value=10, step=1)
 
                 submitted = st.form_submit_button("Submit")
-            
+        
+        with model_cols[1]:
+            st.markdown("### Status")
             if submitted:
-                st.write(hashtag, number_of_tweets)
+                st.write(f"Searching {number_of_tweets} tweets for the topic {hashtag}. Please wait...")
+                model = TSA(number_of_tweets, hashtag)
+                st.write(model.status)
+        
+        with model_cols[2]:
+            st.markdown("### How to")
 
+    # --- 3. EDA ---
+    with tabs[2]:
+        st.subheader("Exploratory Data Analysis:")
+        try:
+            if model.status != "":
+                st.markdown("### Dataframe")
+                st.dataframe(model.data)
+                st.image(create_wordcloud(model.data['plain_text'].values, 'all'))
+                st.image(create_wordcloud(model.data_negative['plain_text'].values, 'negative'))
+                st.image(create_wordcloud(model.data_positive['plain_text'].values, 'positive'))
+                st.dataframe(count_values_in_column(model.data, 'sentiment'))
+                st.dataframe(model.n_gram)
+                
+                data = count_values_in_column(model.data,'sentiment')
+                names= data.index
+                size=data['Percentage']
+                circle=plt.Circle( (0,0), 0.7, color='white')
+                plt.pie(size, labels=names, colors=['green', 'blue', 'red'])
+                p=plt.gcf()
+                p.gca().add_artist(circle)
+                plt.show()
+                st.pyplot(plt)
+                plt.clf()
+
+
+        except:
+            st.write("Please, run the model to get the data")
+            
 if __name__ == "__main__":
 
     main()

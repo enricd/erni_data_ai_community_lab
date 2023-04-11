@@ -14,11 +14,11 @@ def tweet_importer(hashtag, number_of_tweets):
 
     # Query
     found_tweets = [status._json['text'] for status in tweepy.Cursor(api.search_tweets, lang='en', q=hashtag).items(number_of_tweets)]
-    found_tweets.drop_duplicates(inplace = True)
     
     # DataFrame
     df = pd.DataFrame(found_tweets)
     df.rename({0:'text'},axis='columns',inplace=True)
+    df.drop_duplicates(inplace = True)
     return df
 
 def tweet_cleaner(raw_text):
@@ -44,7 +44,9 @@ def create_wordcloud(text, name):
     stopwords = set(STOPWORDS)
     wc = WordCloud(background_color='white', max_words=3000, stopwords=stopwords, repeat=True)
     wc.generate(str(text))
-    wc.to_file(f'sentiment_analysis/images/wc_outputs/{name}.png')
+    output_path = f'projects/sentiment_analysis/images/wc_outputs/{name}.png'
+    wc.to_file(output_path)
+    return output_path
 
 def count_values_in_column(data,feature):
     total=data.loc[:,feature].value_counts(dropna=False)
