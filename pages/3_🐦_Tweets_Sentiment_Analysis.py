@@ -51,7 +51,12 @@ def main():
     with tabs[1]:
         st.subheader("Sentiment Analysis:")
         model_cols = st.columns(3)
+
         with model_cols[0]:
+            st.markdown("### How to")
+            st.markdown(how_to)
+
+        with model_cols[1]:
             st.markdown("#### Form")
             with st.form("Enter the data and click submit to start the analysis"):
                 hashtag = st.text_input("Hashtag")
@@ -59,39 +64,64 @@ def main():
 
                 submitted = st.form_submit_button("Submit")
         
-        with model_cols[1]:
+        with model_cols[2]:
             st.markdown("### Status")
             if submitted:
-                st.write(f"Searching {number_of_tweets} tweets for the topic {hashtag}. Please wait...")
-                model = TSA(number_of_tweets, hashtag)
-                st.write(model.status)
-        
-        with model_cols[2]:
-            st.markdown("### How to")
+                if hashtag == "":
+                    st.error("Hashtag is empty")
+                    return
+                if "#" not in hashtag:
+                    st.error("Invalid hashtag")
+                    return
+                else:
+                    st.write(f"Searching {number_of_tweets} tweets for the topic {hashtag}.")
+                    with st.empty():
+                        with st.spinner(text="In progress..."):
+                            model = TSA(number_of_tweets, hashtag)
+                        st.success('Completed!', icon="✅")
+            else:
+                st.write("Model has not been run")
 
     # --- 3. EDA ---
     with tabs[2]:
         st.subheader("Exploratory Data Analysis:")
         try:
             if model.status != "":
-                st.markdown("### Dataframe")
-                st.dataframe(model.data)
-                st.image(create_wordcloud(model.data['plain_text'].values, 'all'))
-                st.image(create_wordcloud(model.data_negative['plain_text'].values, 'negative'))
-                st.image(create_wordcloud(model.data_positive['plain_text'].values, 'positive'))
-                st.dataframe(count_values_in_column(model.data, 'sentiment'))
-                st.dataframe(model.n_gram)
+                df_cols = st.columns(1)
+                with df_cols[0]:
+                    st.markdown("### Dataframe")
+                    st.dataframe(model.data)
+
+                percent_cols = st.columns(2)
+                with percent_cols[0]:
+                    st.markdown("### Sentiment distribution")
+                    data = count_values_in_column(model.data,'sentiment')
+                    names= data.index
+                    size=data['Percentage']
+                    circle=plt.Circle( (0,0), 0.7, color='white')
+                    plt.pie(size, labels=names)
+                    p=plt.gcf()
+                    p.gca().add_artist(circle)
+                    plt.show()
+                    st.pyplot(plt)
+                    plt.clf()
+                with percent_cols[1]:
+                    st.dataframe(data)
+
+                wc_cols = st.columns(3)
+                with wc_cols[0]:
+                    st.markdown("### Most common words")
+                    st.image(create_wordcloud(model.data['plain_text'].values, 'all'))
+                with wc_cols[1]:
+                    st.markdown("### Top negative words")
+                    st.image(create_wordcloud(model.data_negative['plain_text'].values, 'negative'))
+                with wc_cols[2]:
+                    st.markdown("### Top positive words")
+                    st.image(create_wordcloud(model.data_positive['plain_text'].values, 'positive'))
                 
-                data = count_values_in_column(model.data,'sentiment')
-                names= data.index
-                size=data['Percentage']
-                circle=plt.Circle( (0,0), 0.7, color='white')
-                plt.pie(size, labels=names, colors=['green', 'blue', 'red'])
-                p=plt.gcf()
-                p.gca().add_artist(circle)
-                plt.show()
-                st.pyplot(plt)
-                plt.clf()
+                st.markdown("### N-Gram")
+                st.dataframe(model.n_gram)
+            
 
 
         except:

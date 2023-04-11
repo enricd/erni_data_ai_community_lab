@@ -18,3 +18,8 @@ more_info = """#### More information
 [Word Cloud library](https://pypi.org/project/wordcloud/) Note: This library only works with python 3.9 or below.\n
 [Language detection library](https://pypi.org/project/langdetect/)
 """
+
+how_to = """Fill the Hashtag field with the topic you want to analyze using # + the topic. E.g: "#ChatGPT".\n
+Add the number of tweets you want to analyze in a range from 1 to 1000.\n
+Note that the EDA page won't be filled until the model has run completely.\n
+"""
