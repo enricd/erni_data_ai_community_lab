@@ -3,7 +3,7 @@ import pandas as pd
 from langdetect import detect
 from wordcloud import WordCloud, STOPWORDS
 
-from settings import *
+from projects.sentiment_analysis.utilities.settings import *
 
 
 def tweet_importer(hashtag, number_of_tweets):
@@ -44,7 +44,7 @@ def create_wordcloud(text, name):
     stopwords = set(STOPWORDS)
     wc = WordCloud(background_color='white', max_words=3000, stopwords=stopwords, repeat=True)
     wc.generate(str(text))
-    wc.to_file(f'sentiment_analysis/images/{name}.png')
+    wc.to_file(f'sentiment_analysis/images/wc_outputs/{name}.png')
 
 def count_values_in_column(data,feature):
     total=data.loc[:,feature].value_counts(dropna=False)

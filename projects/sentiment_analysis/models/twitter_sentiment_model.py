@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-from utils.utils import *
+from projects.sentiment_analysis.utilities.helpers import *
 
 class TwitterSentimentAnalyzer():
     def __init__(self, number_of_tweets, hashtag):
