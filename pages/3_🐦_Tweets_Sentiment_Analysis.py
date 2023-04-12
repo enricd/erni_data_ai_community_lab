@@ -30,22 +30,25 @@ def main():
     with tabs[0]:
         st.subheader("Project Info:")
 
-        intro_cols = st.columns((1))
+        intro_cols = st.columns(1)
         with intro_cols[0]:
             st.markdown(project_description)
 
-        img_cols = st.columns((3))
+        img_cols = st.columns(3)
         with img_cols[1]:
             st.image("projects/sentiment_analysis/images/static/sentiment_home.png")
 
-        info_cols = st.columns((1))
+        info_cols = st.columns(1)
         with info_cols[0]:
             st.markdown(sentiment_info)
 
-        more_cols = st.columns((1))
+        video_cols = st.columns(3)
+        with video_cols[1]:
+            st.video("https://www.youtube.com/watch?v=i4D5DZ5ZG-0")
+        
+        more_cols = st.columns(1)
         with more_cols[0]:
             st.markdown(more_info)
-            st.video("https://www.youtube.com/watch?v=i4D5DZ5ZG-0")
 
     # --- 2. Model ---
     with tabs[1]:
@@ -95,10 +98,13 @@ def main():
                 percent_cols = st.columns(2)
                 with percent_cols[0]:
                     st.markdown("### Sentiment distribution")
+                    fig = plt.figure()
+                    fig.patch.set_facecolor("#0E1117")
+                    plt.rcParams['text.color'] = 'white'
                     data = count_values_in_column(model.data,'sentiment')
                     names= data.index
                     size=data['Percentage']
-                    circle=plt.Circle( (0,0), 0.7, color='white')
+                    circle=plt.Circle( (0,0), 0.7, color="#0E1117")
                     plt.pie(size, labels=names)
                     p=plt.gcf()
                     p.gca().add_artist(circle)
