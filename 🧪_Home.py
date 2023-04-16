@@ -1,7 +1,8 @@
 import streamlit as st
 from pathlib import Path
 
-from projects.home.definitions import streamlit_description
+from projects.home.definitions import streamlit_description, project_contributors
+from projects.home.utils import contributor_card
 
 
 def main():
@@ -18,10 +19,21 @@ def main():
         }
     )
 
-    #st.title("🧪📈 The ERNI Data & AI Community Lab 🤖🧠")
-
+    # --- Sidebar ---
     with st.sidebar:
         st.info("Check any of the projects above!", icon="⬆️")
+
+    st.sidebar.markdown("## 🧑‍💻Lab Contributors:")
+    # Create a card for each contributor
+    for contributor in project_contributors:
+        st.sidebar.markdown(contributor_card(
+                contributor["image_url"], 
+                contributor["name"], 
+                contributor["role"], 
+                contributor["linkedin_url"],
+                contributor["github_url"],
+            ), 
+            unsafe_allow_html=True)
 
     # Using the README.md file as the main page intro
     st.markdown((Path(__file__).parents[0]/"readme.md").read_text("utf-8"),

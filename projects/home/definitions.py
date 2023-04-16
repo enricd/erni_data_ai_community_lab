@@ -10,3 +10,30 @@ You can share your applications with others by simply sharing a URL or embedding
 
 This library has become increasingly popular in the data science and machine learning communities because of its ease of use and flexibility. 
 It's a great tool for building prototypes, demos, and dashboards, and it can help you communicate your data insights and models to a wider audience."""
+
+
+# Add your info here as a new dictionary in the list
+project_contributors = [
+    {
+        "name": "Enric Domingo",
+        "role": "ML and Software Engineer at ERNI",
+        "image_url": "https://avatars.githubusercontent.com/u/6952495?v=4",
+        "linkedin_url": "https://www.linkedin.com/in/e-domingo/",
+        "github_url": "https://www.github.com/enricd",
+    },
+    {
+        "name": "David Correa Polo",
+        "role": ".Net Developer at ERNI",
+        "image_url": "https://avatars.githubusercontent.com/u/126108876?v=4",
+        "linkedin_url": "https://linkedin.com/in/david-correa-polo-182117167",
+        "github_url": "https://github.com/C0DA8",
+    },
+    {
+        "name": "Marc Gonzalez Planes",
+        "role": "Software Engineer at ERNI",
+        "image_url": "https://avatars.githubusercontent.com/u/20270288?v=4",
+        "linkedin_url": "https://www.linkedin.com/in/mgonzalezplanes",
+        "github_url": "https://github.com/Magopla",
+    },
+
+]

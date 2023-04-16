@@ -10,6 +10,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import seaborn as sns
 
+from projects.home.definitions import project_contributors
+from projects.home.utils import contributor_card
 from projects.titanic.definitions import titanic_info
 from projects.titanic.models.titanic_model import load_model
 
@@ -40,7 +42,21 @@ def main():
         }
     )
 
+    # --- Sidebar ---
     st.sidebar.markdown("**ML Binary Classification** problem.")
+
+    st.sidebar.markdown("## Project Contributors:")
+    # Create a card for each contributor
+    for contributor in project_contributors[:1]:
+        st.sidebar.markdown(contributor_card(
+                contributor["image_url"], 
+                contributor["name"], 
+                contributor["role"], 
+                contributor["linkedin_url"],
+                contributor["github_url"],
+            ), 
+            unsafe_allow_html=True)
+
 
     train_df, test_df = load_data()
 
