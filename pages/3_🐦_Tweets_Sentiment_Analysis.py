@@ -1,6 +1,8 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
+from projects.home.definitions import project_contributors
+from projects.home.utils import contributor_card
 from projects.sentiment_analysis.utilities.helpers import create_wordcloud, count_values_in_column
 from projects.sentiment_analysis.utilities.definitions import *
 from projects.sentiment_analysis.models.twitter_sentiment_model import TwitterSentimentAnalyzer as TSA
@@ -20,6 +22,22 @@ def main():
         }
     )
 
+    # --- Sidebar ---
+    st.sidebar.markdown("Text **Data Engineering** + **NLP** Sentiment Analysis Project.")
+
+    st.sidebar.markdown("## Project Contributors:")
+    # Create a card for each contributor
+    for contributor in project_contributors[1:3]:
+        st.sidebar.markdown(contributor_card(
+                contributor["image_url"], 
+                contributor["name"], 
+                contributor["role"], 
+                contributor["linkedin_url"],
+                contributor["github_url"],
+            ), 
+            unsafe_allow_html=True)
+
+    # --- Main Page ---
     st.header("🐦 Tweets Sentiment Analysis")
 
     st.subheader("(🚧 Under Construction... 🚧)")
