@@ -29,7 +29,7 @@ project_contributors = [
         "github_url": "https://github.com/C0DA8",
     },
     {
-        "name": "Marc Gonzalez Planes",
+        "name": "Marc González Planes",
         "role": "Software Engineer at ERNI",
         "image_url": "https://avatars.githubusercontent.com/u/20270288?v=4",
         "linkedin_url": "https://www.linkedin.com/in/mgonzalezplanes",
