@@ -15,7 +15,7 @@ more_info = """#### More information
 [Access to Twiter's API](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api)\n
 [VADER library](https://pypi.org/project/vaderSentiment/)\n
 [VADER github homepage](https://github.com/cjhutto/vaderSentiment)\n
-[Word Cloud library](https://pypi.org/project/wordcloud/) Note: This library only works with python 3.9 or below.\n
+[Word Cloud library](https://pypi.org/project/wordcloud/) Note: This library only works with python 3.10 or below.\n
 [Language detection library](https://pypi.org/project/langdetect/)
 """
 
