@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import seaborn as sns
 
-from projects.home.definitions import project_contributors
+from projects.home.definitions import lab_contributors
 from projects.home.utils import contributor_card
 from projects.titanic.definitions import titanic_info
 from projects.titanic.models.titanic_model import load_model
@@ -47,13 +47,9 @@ def main():
 
     st.sidebar.markdown("## Project Contributors:")
     # Create a card for each contributor
-    for contributor in project_contributors[:1]:
+    for contributor in ["enricd"]:
         st.sidebar.markdown(contributor_card(
-                contributor["image_url"], 
-                contributor["name"], 
-                contributor["role"], 
-                contributor["linkedin_url"],
-                contributor["github_url"],
+            **lab_contributors[contributor],
             ), 
             unsafe_allow_html=True)
 

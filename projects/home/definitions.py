@@ -13,22 +13,22 @@ It's a great tool for building prototypes, demos, and dashboards, and it can hel
 
 
 # Add your info here as a new dictionary in the list
-project_contributors = [
-    {
+lab_contributors = {
+    "enricd": {
         "name": "Enric Domingo",
         "role": "ML and Software Engineer at ERNI",
         "image_url": "https://avatars.githubusercontent.com/u/6952495?v=4",
         "linkedin_url": "https://www.linkedin.com/in/e-domingo/",
         "github_url": "https://www.github.com/enricd",
     },
-    {
+    "c0da8": {
         "name": "David Correa Polo",
         "role": ".Net Developer at ERNI",
         "image_url": "https://avatars.githubusercontent.com/u/126108876?v=4",
         "linkedin_url": "https://linkedin.com/in/david-correa-polo-182117167",
         "github_url": "https://github.com/C0DA8",
     },
-    {
+    "magopla": {
         "name": "Marc González Planes",
         "role": "Software Engineer at ERNI",
         "image_url": "https://avatars.githubusercontent.com/u/20270288?v=4",
@@ -36,4 +36,4 @@ project_contributors = [
         "github_url": "https://github.com/Magopla",
     },
 
-]
+}

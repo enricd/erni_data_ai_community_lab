@@ -3,7 +3,7 @@ import pandas as pd
 from PIL import Image
 import streamlit as st
 
-from projects.home.definitions import project_contributors
+from projects.home.definitions import lab_contributors
 from projects.home.utils import contributor_card
 from projects.mnist.utils.utils import canvas_draw
 from projects.mnist.model.model_utils import load_model, predict, MLP
@@ -28,13 +28,9 @@ def main():
     st.sidebar.markdown("**Computer Vision** model to recognise single digit integer characters.")
     st.sidebar.markdown("## Project Contributors:")
     # Create a card for each contributor
-    for contributor in project_contributors[:1]:
+    for contributor in ["enricd"]:
         st.sidebar.markdown(contributor_card(
-                contributor["image_url"], 
-                contributor["name"], 
-                contributor["role"], 
-                contributor["linkedin_url"],
-                contributor["github_url"],
+            **lab_contributors[contributor],
             ), 
             unsafe_allow_html=True)
 

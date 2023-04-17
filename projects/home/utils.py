@@ -4,7 +4,7 @@ import streamlit as st
 # Function to create a contributor card
 def contributor_card(image_url="", name="", role="", linkedin_url="", github_url=""):
     """
-    Creates a contributor card with profile image, name, role, and LinkedIn profile link.
+    Creates a contributor card with profile image, name, role, and LinkedIn + GitHub profile links.
     """
     card = f"""
         <div style="border-radius: 10px; padding: 0.8rem; background-color: #484c63; display: flex; align-items: center; margin-bottom: 0.5rem;">

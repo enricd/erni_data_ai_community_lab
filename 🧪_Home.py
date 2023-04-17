@@ -1,7 +1,7 @@
 import streamlit as st
 from pathlib import Path
 
-from projects.home.definitions import streamlit_description, project_contributors
+from projects.home.definitions import streamlit_description, lab_contributors
 from projects.home.utils import contributor_card
 
 
@@ -25,13 +25,9 @@ def main():
 
     st.sidebar.markdown("## 🧑‍💻Lab Contributors:")
     # Create a card for each contributor
-    for contributor in project_contributors:
+    for contributor in lab_contributors:
         st.sidebar.markdown(contributor_card(
-                contributor["image_url"], 
-                contributor["name"], 
-                contributor["role"], 
-                contributor["linkedin_url"],
-                contributor["github_url"],
+            **lab_contributors[contributor],
             ), 
             unsafe_allow_html=True)
 
