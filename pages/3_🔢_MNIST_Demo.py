@@ -6,7 +6,7 @@ import streamlit as st
 from projects.home.definitions import lab_contributors
 from projects.home.utils import contributor_card
 from projects.mnist.utils.utils import canvas_draw
-from projects.mnist.model.model_utils import load_model, predict, MLP
+from projects.mnist.model.model_utils import load_model, MLP, CNN, mlp_predict, cnn_predict
 
 
 def main():
@@ -35,13 +35,12 @@ def main():
             unsafe_allow_html=True)
 
     st.header("🔢 MNIST Computer Vision Model Inference")
-    st.subheader("(🚧 Under Construction... 🚧)")
-    st.subheader("(Preliminary basic model, not yet much trained... )")
 
     st.markdown("#")
 
     # Load the model
-    model = load_model()
+    mlp_model = load_model("projects/mnist/model/model.pth")
+    cnn_model = load_model("projects/mnist/model/CNN_model.pth")
 
 
     cols = st.columns((2,8,2,8,2,5,2))
@@ -86,12 +85,19 @@ def main():
         # Prediction
         st.write("🤖 Prediction:")
         if image_raw is not None:
-            pred, prob = predict(model, np_image)
-            st.info(f"### MLP: {pred} ({prob:.2f}%)")
-            #st.info(f"### MLP: {pred} ({prob:.2f}%)")
-            #st.metric("**MLP Model**", f"{pred} ({prob:.2f}%)")
+            mlp_pred, mlp_prob = mlp_predict(mlp_model, np_image)
+            st.info(f"### MLP: {mlp_pred} ({mlp_prob:.2f}%)")
 
-            # TODO: add a CNN model
+            cnn_pred, cnn_prob = cnn_predict(cnn_model, np_image)
+            st.info(f"### CNN: {cnn_pred} ({cnn_prob:.2f}%)")
+
+
+    cols2 = st.columns(3)
+    with cols2[2]:
+        with st.expander("MLP Pytorch model architecture..."):
+            st.write(mlp_model)
+        with st.expander("CNN Pytorch model architecture..."):
+            st.write(cnn_model)
 
 
 
