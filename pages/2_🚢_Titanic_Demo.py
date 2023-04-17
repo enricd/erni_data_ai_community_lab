@@ -109,22 +109,34 @@ def main():
 
     # --- 3. Model ---
     with tabs[2]:
+        st.subheader("🚧 (Model not yet connected to inputs) 🚧")
+
         st.subheader("Inference:")
 
         with st.form("Enter the passenger data"):
-            name = st.text_input("Name")
-            
+            name = st.text_input("Name (not used by the model)")
+            f_cols = st.columns(3)
+            with f_cols[0]:
+                pclass = st.selectbox("Passenger Class", [1, 2, 3])
+                sibsp = st.number_input("Number of Siblings/Spouses Aboard", min_value=0, max_value=10, value=0)
+                embarked = st.selectbox("Embarked", ["S", "C", "Q"])
+            with f_cols[1]:
+                sex = st.selectbox("Sex", ["Male", "Female"])
+                parch = st.number_input("Number of Parents/Children Aboard", min_value=0, max_value=10, value=0)
+            with f_cols[2]:
+                age = st.number_input("Age", min_value=0, max_value=100, value=0)
+                fare = st.number_input("Fare", min_value=0.0, max_value=1000.0, value=0.0)
 
-            submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Predict")
             
         if submitted:
-            st.write("name", name)
+            st.write("Name:", name, "(Model not yet connected to inputs)")
 
-        file_input = st.file_uploader("Upload input file")
-        if file_input:
-            inputs = pd.read_csv(file_input)
-            preds = model.predict(inputs)
-            st.write(preds)
+        # file_input = st.file_uploader("Upload input file")
+        # if file_input:
+        #     inputs = pd.read_csv(file_input)
+        #     preds = model.predict(inputs)
+        #     st.write(preds)
 
 if __name__ == "__main__":
 
