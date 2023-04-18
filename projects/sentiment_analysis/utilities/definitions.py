@@ -20,6 +20,6 @@ more_info = """#### More information
 """
 
 how_to = """Fill the Hashtag field with the topic you want to analyze using # + the topic. E.g: "#ChatGPT".\n
-Add the number of tweets you want to analyze in a range from 1 to 1000.\n
+Add the number of tweets you want to analyze in a range from 1 to 100.\n
 Note that the EDA page won't be filled until the model has run completely.\n
 """
