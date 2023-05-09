@@ -35,5 +35,18 @@ lab_contributors = {
         "linkedin_url": "https://www.linkedin.com/in/mgonzalezplanes",
         "github_url": "https://github.com/Magopla",
     },
-
+    "ayoitu": {
+        "name": "Ayose Iturralde Valencia",
+        "role": "Data/AI Principal at ERNI",
+        "image_url": "https://avatars.githubusercontent.com/u/40231179?v=4",
+        "linkedin_url": "https://www.linkedin.com/in/ayose-iturralde-valencia-529319141",
+        "github_url": "https://github.com/ayoitu",
+    },
+    "jalbert83": {
+        "name": "Alberto Martín Gómez",
+        "role": "Expert Software Engineer at ERNI",
+        "image_url": "https://avatars.githubusercontent.com/u/83282351?v=4",
+        "linkedin_url": "https://www.linkedin.com/in/alberto-mart%C3%ADn-g%C3%B3mez-52515421",
+        "github_url": "https://github.com/Jalbert83",
+    },
 }
