@@ -20,11 +20,6 @@ from projects.home.utils import contributor_card
 
 # --- Functions ---
 
-""""
-You can define here some basic functions or you can develop a more complex logic
-into the projects/<your_project>/ folder, building there a package with the needed
-modules and data.
-"""
 
 
 # --- Main ---
@@ -33,7 +28,7 @@ def main():
 
     st.set_page_config(
         page_title="ERNI Data & AI Community Lab",
-        page_icon="🚢",  # TODO: add icon
+        page_icon="🔠",
         layout="wide",
         initial_sidebar_state="expanded",
         menu_items={
@@ -44,18 +39,18 @@ def main():
     )
 
     # --- Sidebar ---
-    st.sidebar.markdown("Project description...")  # TODO: add description
+    st.sidebar.markdown("OCR (Optical Character Recognition) project to automatically extract text and information from invoices and receipts images.") 
 
     st.sidebar.markdown("## Project Contributors:")
     # Create a card for each contributor
-    for contributor in []:  # TODO: add contributors keys/names
+    for contributor in ["ayoitu", "jalbert83", "enricd"]:  # TODO: add contributors keys/names
         st.sidebar.markdown(contributor_card(
             **lab_contributors[contributor],
             ), 
             unsafe_allow_html=True)
 
     # --- Main Page ---
-    st.header("Project Title...")  # TODO: add title
+    st.header("🔠 Invoice OCR")
 
     st.subheader("(🚧 Under Construction... 🚧)")
 
