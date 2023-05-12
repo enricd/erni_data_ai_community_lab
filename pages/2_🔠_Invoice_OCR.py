@@ -59,13 +59,12 @@ def main():
 
     st.subheader("(🚧 Under Construction... 🚧)")
 
-    cols = st.columns((2,8,2,8,2,5,2))
+    cols = st.columns((8,2,8,2,6))
 
-    with cols[1]:
+    with cols[0]:
         # Choose the input
-        st.write("✍️ Choose a way to select input:")
+        st.write("🖼️ Choose an image input method:")
         
-        #if st.button('Take a picture from your camera'):
         with st.expander('📸 Take a picture from your camera'):
             img_file_buffer = st.camera_input("Take a picture")
             if img_file_buffer is not None:
@@ -78,7 +77,9 @@ def main():
                 # Check the shape of img_array:
                 # Should output shape: (height, width, channels)
                 st.write(image_raw.shape)
+
         st.write ('or')
+
         with st.expander('📁 Choose a image file'):
             uploaded_file = st.file_uploader("Choose a image file", accept_multiple_files=False)
             if uploaded_file is not None:
@@ -86,7 +87,9 @@ def main():
                 image_raw = np.array(image_raw)
                 st.write("filename:", uploaded_file.name)
                 st.image(image_raw)
+
         st.write('or')
+
         with st.expander('📄 Choose a predeterminate file'):
             img = image_select("Choose a file", ["./projects/invoice_ocr/data/invoice_examples/ticket1.jpg", "./projects/invoice_ocr/data/invoice_examples/ticket2.jpg", "./projects/invoice_ocr/data/invoice_examples/ticket3.jpg"])
             if st.button('Send this invoice'):
@@ -94,15 +97,15 @@ def main():
                 img = np.array(img)
                 image_raw=img
         
-    with cols[2]:
+    with cols[1]:
         st.markdown("#")
         st.markdown("#")
         st.markdown("#")
         st.markdown("# ➡️")
 
-    with cols[3]:
+    with cols[2]:
         # Show the Invoice selected
-        st.write("🐜 That is the invoice selected")
+        st.write("🔧 Image Preprocessing...")
 
         preprocessing_option = st.multiselect('Select one or more options:', ['Option 1', 'Option 2', 'Option 3'])
 
@@ -121,15 +124,15 @@ def main():
             # Convert the image to a numpy array
             np_image = np.array(image)
 
-    with cols[4]:
+    with cols[3]:
         st.markdown("#")
         st.markdown("#")
         st.markdown("#")
         st.markdown("# ➡️")
 
-    with cols[5]:
+    with cols[4]:
         # Prediction
-        st.write("🤖 Prediction:")
+        st.write("🤖 Model Output:")
         if image_raw is not None:
             st.image(image_raw, width=250)
         
