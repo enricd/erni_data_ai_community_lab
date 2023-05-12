@@ -103,7 +103,13 @@ def main():
     with cols[3]:
         # Show the Invoice selected
         st.write("🐜 That is the invoice selected")
+
+        preprocessing_option = st.multiselect('Select one or more options:', ['Option 1', 'Option 2', 'Option 3'])
+
         if image_raw is not None:
+
+            # processed_img = image_preprocessing(image_raw, preprocessing_option)
+
             image = Image.fromarray(image_raw).resize((28, 28))
 
             st.image(image, width=250)
