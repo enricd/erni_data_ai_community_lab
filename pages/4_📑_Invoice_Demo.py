@@ -3,11 +3,11 @@ import streamlit as st
 
 from projects.home.definitions import lab_contributors
 from projects.home.utils import contributor_card
-from projects.Invoice.Utils.utils import OCRImage2Text
+from projects.Invoice.Utils.utils import OCRImage2Text, ImageRender
 
 import cv2
 import numpy as np
-import easyocr
+
 
 
 def main():
@@ -39,29 +39,42 @@ def main():
     st.markdown("#")
 
 
-    cols = st.columns(2)
-    result = None
+    imFileLoader = st.file_uploader("load image", type=['jpg', 'png', 'jpeg'], accept_multiple_files=False)
 
+    cols = st.columns(4)
+    result = None
+    resultDenoise = None
+    imageDenoise = None
     with cols[0]:
-        st.write("Load a photo of an invoice")
-        imFileLoader = st.file_uploader("load image", type=['jpg','png','jpeg'], accept_multiple_files=False)
+        st.write("Image loaded")
         if imFileLoader is not None:
             image = Image.open(imFileLoader)
 
             ## Image to numpy array
             imageNp = np.array(image.convert('RGB'))
+            imageDenoise = ImageRender(imageNp)
 
             ## Resize for viewing comforably on the web
             imageResize = cv2.resize(imageNp, (240,320))
             st.image(imageResize)
-            if (st.button("Process...")):
-                result = OCRImage2Text(imageNp)
+            if (st.button("Extract")):
+                Tolerance = imageNp.shape[1]//20
+                result = OCRImage2Text(imageNp,Tolerance)
+                resultDenoise = OCRImage2Text(imageDenoise,Tolerance)
 
 
     with cols[1]:
-        st.write("Text extracted")
+        st.write("Image Denoised")
+        if imageDenoise is not None:
+            st.image(cv2.resize(imageDenoise, (240,320)))
+    with cols[2]:
+        st.write("Text from original")
         if result is not None:
             st.write(result)
+    with cols[3]:
+        st.write("Text from denoised")
+        if resultDenoise is not None:
+            st.write(resultDenoise)
 
 
 if __name__ == "__main__":
