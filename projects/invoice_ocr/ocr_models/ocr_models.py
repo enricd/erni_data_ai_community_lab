@@ -3,7 +3,8 @@ import cv2
 import numpy as np
 
 
-def OCRImage2Text(image, Tolerance):
+def easyOCRImage2Text(image):
+
     ## Y tolerance to format the text in different lines
     #Tolerance = 30
 
@@ -25,6 +26,7 @@ def OCRImage2Text(image, Tolerance):
         LastY = YInitPos
     return resFormat
 
+
 def ImageRender(im):
     imgray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
     imden = cv2.fastNlMeansDenoising(imgray)
@@ -38,3 +40,4 @@ def ImageRender(im):
 
     #imdil = cv2.erode(imbw, n, iterations=1)
     return sharpened
+
