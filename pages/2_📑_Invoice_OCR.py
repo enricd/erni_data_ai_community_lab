@@ -12,6 +12,8 @@ import numpy as np
 from PIL import Image
 from io import StringIO
 from streamlit_image_select import image_select
+import projects.invoice_ocr.ocr_models.ocr_models as Modellib
+import projects.invoice_ocr.img_preprocessing.img_preprocessing as Preproclib
 # import numpy as np
 # import pandas as pd
 # from pathlib import Path
@@ -24,8 +26,15 @@ from streamlit_image_select import image_select
 
 
 # --- Functions ---
+def getFunctionsFromlibrary(lib):
+    Functlist = []
 
-
+    for func in dir(lib):
+        if not func.startswith('__'):
+            funcCall = getattr(lib, func)
+            if callable(funcCall):
+                Functlist.append(func)
+    return np.array(Functlist)
 
 # --- Main ---
 
@@ -33,7 +42,7 @@ def main():
     image_raw=None
     st.set_page_config(
         page_title="ERNI Data & AI Community Lab",
-        page_icon="🔠",
+        page_icon="📑",
         layout="wide",
         initial_sidebar_state="expanded",
         menu_items={
@@ -104,22 +113,38 @@ def main():
         # Show the Invoice selected
         st.write("🐜 That is the invoice selected")
 
-        preprocessing_option = st.multiselect('Select one or more options:', ['Option 1', 'Option 2', 'Option 3'])
+
+        PreprocImage = None
+        PreprocFunction = None
+        Preprocessing = getFunctionsFromlibrary(Preproclib)
+        preprocessing_option = st.selectbox('Choose a preprocessing function:', Preprocessing)
+        if isinstance(preprocessing_option, str):
+            PreprocFunction = getattr(Preproclib, preprocessing_option)
+        ModelFunction = None
+        Models = getFunctionsFromlibrary(Modellib)
+        model_option = st.selectbox('Choose a model function:', Models)
+        if isinstance(model_option, str):
+            ModelFunction = getattr(Modellib, model_option)
 
         if image_raw is not None:
 
             # processed_img = image_preprocessing(image_raw, preprocessing_option)
 
-            image = Image.fromarray(image_raw).resize((28, 28))
-
-            st.image(image, width=250)
-            st.write(image.size)
+            #image = Image.fromarray(image_raw).resize((28, 28))
+            st.write("Raw image")
+            st.image(image_raw, width=250)
+            #st.write(image.size)
 
             # Convert the image to grayscale
-            image = image.convert('L')      # L: (8-bit pixels, grayscale)
+            #image = image.convert('L')      # L: (8-bit pixels, grayscale)
 
             # Convert the image to a numpy array
-            np_image = np.array(image)
+            np_image = np.array(image_raw)
+
+            if PreprocFunction is not None:
+                PreprocImage = PreprocFunction(image_raw)
+                st.write("Preprocessed image")
+                st.image(PreprocImage, width=250)
 
     with cols[4]:
         st.markdown("#")
@@ -129,9 +154,13 @@ def main():
 
     with cols[5]:
         # Prediction
+
         st.write("🤖 Prediction:")
-        if image_raw is not None:
-            st.image(image_raw, width=250)
+        if PreprocImage is not None and ModelFunction is not None:
+            Text = ModelFunction(PreprocImage)
+            st.write(Text)
+
+
         
 
 
