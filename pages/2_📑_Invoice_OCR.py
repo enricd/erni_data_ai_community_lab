@@ -64,7 +64,7 @@ def main():
             unsafe_allow_html=True)
 
     # --- Main Page ---
-    st.header("🔠 Invoice OCR")
+    st.header("📑 Invoice OCR")
 
     st.subheader("(🚧 Under Construction... 🚧)")
 
