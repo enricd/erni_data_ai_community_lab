@@ -68,8 +68,9 @@ def main():
         
         with st.expander("📸 Take a picture from your camera"):
             img_file_buffer = st.camera_input("Take a picture")
-            image_raw = Image.open(img_file_buffer)
-            image_raw = np.array(image_raw)
+            if img_file_buffer is not None:
+                image_raw = Image.open(img_file_buffer)
+                image_raw = np.array(image_raw)
 
         st.write ("or")
 
