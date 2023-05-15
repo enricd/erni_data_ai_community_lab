@@ -27,7 +27,7 @@ import projects.invoice_ocr.img_preprocessing.img_preprocessing as Preproclib
 
 # --- Functions ---
 def getFunctionsFromlibrary(lib):
-    Functlist = []
+    Functlist = [None]
 
     for func in dir(lib):
         if not func.startswith('__'):
@@ -88,7 +88,7 @@ def main():
                 # Should output shape: (height, width, channels)
                 st.write(image_raw.shape)
         st.write ('or')
-        with st.expander('📁 Choose a image file'):
+        with st.expander('📁 Choose an image file'):
             uploaded_file = st.file_uploader("Choose a image file", accept_multiple_files=False)
             if uploaded_file is not None:
                 image_raw = Image.open(uploaded_file)
