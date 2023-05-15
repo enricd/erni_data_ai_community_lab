@@ -1,7 +1,3 @@
-"""
-Take this tamplate as a starting point for your Streamlit app and adapt it to your needs.
-"""
-
 # --- Libraries ---
 
 import streamlit as st
@@ -12,20 +8,25 @@ import numpy as np
 from PIL import Image
 from io import StringIO
 from streamlit_image_select import image_select
-# import numpy as np
-# import pandas as pd
-# from pathlib import Path
-# etc...
+import projects.invoice_ocr.ocr_models.ocr_models as Modellib
+import projects.invoice_ocr.img_preprocessing.img_preprocessing as Preproclib
 
 
 # --- Definitions ---
 
-# DATA_PATH = Path("projects/titanic/data")
 
 
 # --- Functions ---
+def getFunctionsFromlibrary(lib):
+    Functlist = [None]
 
-
+    for func in dir(lib):
+        if not func.startswith("__"):
+            funcCall = getattr(lib, func)
+            if callable(funcCall):
+                Functlist.append(func)
+                
+    return np.array(Functlist)
 
 # --- Main ---
 
@@ -33,7 +34,7 @@ def main():
     image_raw=None
     st.set_page_config(
         page_title="ERNI Data & AI Community Lab",
-        page_icon="🔠",
+        page_icon="📑",
         layout="wide",
         initial_sidebar_state="expanded",
         menu_items={
@@ -48,85 +49,108 @@ def main():
 
     st.sidebar.markdown("## Project Contributors:")
     # Create a card for each contributor
-    for contributor in ["ayoitu", "jalbert83", "enricd"]:  # TODO: add contributors keys/names
+    for contributor in ["ayoitu", "jalbert83", "enricd"]:  
         st.sidebar.markdown(contributor_card(
             **lab_contributors[contributor],
             ), 
             unsafe_allow_html=True)
 
     # --- Main Page ---
-    st.header("🔠 Invoice OCR")
+    st.header("📑 Invoice OCR")
 
     st.subheader("(🚧 Under Construction... 🚧)")
 
-    cols = st.columns((2,8,2,8,2,5,2))
+    cols = st.columns((8,2,8,2,6))
 
-    with cols[1]:
+    with cols[0]:
         # Choose the input
-        st.write("✍️ Choose a way to select input:")
+        st.write("🖼️ Choose a way to select input:")
         
-        #if st.button('Take a picture from your camera'):
-        with st.expander('📸 Take a picture from your camera'):
+        with st.expander("📸 Take a picture from your camera"):
             img_file_buffer = st.camera_input("Take a picture")
             if img_file_buffer is not None:
-                # To read image file buffer as a PIL Image:
-                img = Image.open(img_file_buffer)
+                image_raw = Image.open(img_file_buffer)
+                image_raw = np.array(image_raw)
 
-                # To convert PIL Image to numpy array:
-                image_raw = np.array(img)
+        st.write ("or")
 
-                # Check the shape of img_array:
-                # Should output shape: (height, width, channels)
-                st.write(image_raw.shape)
-        st.write ('or')
-        with st.expander('📁 Choose a image file'):
+        with st.expander("📁 Choose an image file"):
             uploaded_file = st.file_uploader("Choose a image file", accept_multiple_files=False)
             if uploaded_file is not None:
                 image_raw = Image.open(uploaded_file)
                 image_raw = np.array(image_raw)
                 st.write("filename:", uploaded_file.name)
                 st.image(image_raw)
-        st.write('or')
-        with st.expander('📄 Choose a predeterminate file'):
+
+        st.write("or")
+
+        with st.expander("📄 Choose a predeterminate file"):
             img = image_select("Choose a file", ["./projects/invoice_ocr/data/invoice_examples/ticket1.jpg", "./projects/invoice_ocr/data/invoice_examples/ticket2.jpg", "./projects/invoice_ocr/data/invoice_examples/ticket3.jpg"])
-            if st.button('Send this invoice'):
+            if st.button("Send this invoice"):
                 img= Image.open(img)
                 img = np.array(img)
                 image_raw=img
         
-    with cols[2]:
+    with cols[1]:
         st.markdown("#")
         st.markdown("#")
         st.markdown("#")
         st.markdown("# ➡️")
 
-    with cols[3]:
+    with cols[2]:
         # Show the Invoice selected
-        st.write("🐜 That is the invoice selected")
-        if image_raw is not None:
-            image = Image.fromarray(image_raw).resize((28, 28))
+        st.write("🔧 Preprocessing...")
 
-            st.image(image, width=250)
-            st.write(image.size)
+        PreprocImage = None
+        PreprocFunction = None
+        Preprocessing = getFunctionsFromlibrary(Preproclib)
+        preprocessing_option = st.selectbox("Choose a preprocessing function:", Preprocessing)
+        if isinstance(preprocessing_option, str):
+            PreprocFunction = getattr(Preproclib, preprocessing_option)
+        
+        if image_raw is not None:
+
+            # processed_img = image_preprocessing(image_raw, preprocessing_option)
+
+            #image = Image.fromarray(image_raw).resize((28, 28))
+            st.write("Raw image")
+            st.image(image_raw, width=250)
+            st.write(type(image_raw))
 
             # Convert the image to grayscale
-            image = image.convert('L')      # L: (8-bit pixels, grayscale)
+            #image = image.convert("L")      # L: (8-bit pixels, grayscale)
 
             # Convert the image to a numpy array
-            np_image = np.array(image)
+            np_image = np.array(image_raw)
 
-    with cols[4]:
+            if PreprocFunction is not None:
+                PreprocImage = PreprocFunction(image_raw)
+                st.write("Preprocessed image")
+                st.image(PreprocImage, width=250)
+                st.write(type(PreprocImage))
+
+
+    with cols[3]:
         st.markdown("#")
         st.markdown("#")
         st.markdown("#")
         st.markdown("# ➡️")
 
-    with cols[5]:
+    with cols[4]:
         # Prediction
+
         st.write("🤖 Prediction:")
-        if image_raw is not None:
-            st.image(image_raw, width=250)
+
+        ModelFunction = None
+        Models = getFunctionsFromlibrary(Modellib)
         
+        model_option = st.selectbox("Choose a model function:", Models)
+        if isinstance(model_option, str):
+            ModelFunction = getattr(Modellib, model_option)
+
+        if PreprocImage is not None and ModelFunction is not None:
+            Text = ModelFunction(PreprocImage)
+            st.write(Text)
 
 
 
