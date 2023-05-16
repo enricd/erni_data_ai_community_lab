@@ -77,7 +77,7 @@ def main():
             st.markdown("#### Form")
             with st.form("Enter the data and click submit to start the analysis"):
                 hashtag = st.text_input("Hashtag")
-                number_of_tweets = st.number_input("Number of tweets", min_value=1, max_value=1000, value=10, step=1)
+                number_of_tweets = st.number_input("Number of tweets", min_value=1, max_value=100, value=10, step=1)
 
                 submitted = st.form_submit_button("Submit")
         

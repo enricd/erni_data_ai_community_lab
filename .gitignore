@@ -3,4 +3,6 @@ venv/
 __pycache__
 secrets*
 venv310/
+.idea/
+
 
