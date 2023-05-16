@@ -2,7 +2,8 @@ import easyocr
 import cv2
 import numpy as np
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+import os
+#pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 
 def easyOCR_Image2Text(image):

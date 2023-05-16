@@ -85,7 +85,9 @@ def main():
         st.write("or")
 
         with st.expander("📄 Choose a predeterminate file"):
-            img = image_select("Choose a file", ["./projects/invoice_ocr/data/invoice_examples/ticket1.jpg", "./projects/invoice_ocr/data/invoice_examples/ticket2.jpg", "./projects/invoice_ocr/data/invoice_examples/ticket3.jpg"])
+            img = image_select("Choose a file", ["./projects/invoice_ocr/data/invoice_examples/ticket1.jpg", 
+                                                 "./projects/invoice_ocr/data/invoice_examples/ticket2.jpg", 
+                                                 "./projects/invoice_ocr/data/invoice_examples/ticket3.jpg"])
             if st.button("Send this invoice"):
                 img= Image.open(img)
                 img = np.array(img)
@@ -115,7 +117,6 @@ def main():
             #image = Image.fromarray(image_raw).resize((28, 28))
             st.write("Raw image")
             st.image(image_raw, width=250)
-            st.write(type(image_raw))
 
             # Convert the image to grayscale
             #image = image.convert("L")      # L: (8-bit pixels, grayscale)
@@ -127,7 +128,6 @@ def main():
                 PreprocImage = PreprocFunction(image_raw)
                 st.write("Preprocessed image")
                 st.image(PreprocImage, width=250)
-                st.write(type(PreprocImage))
 
 
     with cols[3]:
@@ -150,7 +150,7 @@ def main():
 
         if PreprocImage is not None and ModelFunction is not None:
             Text = ModelFunction(PreprocImage)
-            st.write(Text)
+            st.code(Text, language="text")
 
 
 
