@@ -1,9 +1,10 @@
 import easyocr
-#import cv2
+import cv2
 import numpy as np
+import pytesseract
 
 
-def easyOCRImage2Text(image):
+def easyOCR_Image2Text(image):
 
     ## Y tolerance to format the text in different lines
     Tolerance = 30
@@ -25,6 +26,12 @@ def easyOCRImage2Text(image):
         resFormat += text + " "
         LastY = YInitPos
     return resFormat
+
+
+def pytesseract_Image2Text(image):
+
+    text = pytesseract.image_to_string(image)
+    return text
 
 
 
