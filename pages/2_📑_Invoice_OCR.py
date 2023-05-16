@@ -87,7 +87,10 @@ def main():
         with st.expander("📄 Choose a predeterminate file"):
             img = image_select("Choose a file", ["./projects/invoice_ocr/data/invoice_examples/ticket1.jpg", 
                                                  "./projects/invoice_ocr/data/invoice_examples/ticket2.jpg", 
-                                                 "./projects/invoice_ocr/data/invoice_examples/ticket3.jpg"])
+                                                 "./projects/invoice_ocr/data/invoice_examples/ticket3.jpg",
+                                                 "./projects/invoice_ocr/data/invoice_examples/receipt.png",
+                                                 "./projects/invoice_ocr/data/invoice_examples/receipt2.png",
+                                                 "./projects/invoice_ocr/data/invoice_examples/Noisyreceipt.png"])
             if st.button("Send this invoice"):
                 img= Image.open(img)
                 img = np.array(img)
