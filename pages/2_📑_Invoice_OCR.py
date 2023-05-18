@@ -10,10 +10,12 @@ from io import StringIO
 from streamlit_image_select import image_select
 import projects.invoice_ocr.ocr_models.ocr_models as Modellib
 import projects.invoice_ocr.img_preprocessing.img_preprocessing as Preproclib
+import projects.invoice_ocr.utils.utils as utillib
+import cv2
 
 
 # --- Definitions ---
-
+MAXIMAGESIZE = (720, 1080)
 
 
 # --- Functions ---
@@ -69,6 +71,7 @@ def main():
         with st.expander("📸 Take a picture from your camera"):
             img_file_buffer = st.camera_input("Take a picture")
             if img_file_buffer is not None:
+
                 image_raw = Image.open(img_file_buffer)
                 image_raw = np.array(image_raw)
 
@@ -78,8 +81,12 @@ def main():
             uploaded_file = st.file_uploader("Choose a image file", accept_multiple_files=False)
             if uploaded_file is not None:
                 image_raw = Image.open(uploaded_file)
-                image_raw = np.array(image_raw)
                 st.write("filename:", uploaded_file.name)
+                if(image_raw.size > MAXIMAGESIZE):
+                    Newsize = (MAXIMAGESIZE[0], int(MAXIMAGESIZE[0]*(image_raw.size[1]/image_raw.size[0])))
+                    image_raw = image_raw.resize(Newsize)
+                    st.write("Downscaled to "+str(Newsize))
+                image_raw = np.array(image_raw)
                 st.image(image_raw)
 
         st.write("or")
@@ -105,7 +112,7 @@ def main():
     with cols[2]:
         # Show the Invoice selected
         st.write("🔧 Preprocessing...")
-
+        Rotate = st.checkbox("Auto rotation", value = True)
         PreprocImage = None
         PreprocFunction = None
         Preprocessing = getFunctionsFromlibrary(Preproclib)
@@ -114,8 +121,8 @@ def main():
             PreprocFunction = getattr(Preproclib, preprocessing_option)
         
         if image_raw is not None:
-
-            # processed_img = image_preprocessing(image_raw, preprocessing_option)
+            if(Rotate):
+                image_raw = utillib.Checkandrotate(image_raw)
 
             #image = Image.fromarray(image_raw).resize((28, 28))
             st.write("Raw image")
