@@ -12,6 +12,7 @@ import projects.invoice_ocr.ocr_models.ocr_models as Modellib
 import projects.invoice_ocr.img_preprocessing.img_preprocessing as Preproclib
 import projects.invoice_ocr.utils.utils as utillib
 import cv2
+import types
 
 
 # --- Definitions ---
@@ -25,7 +26,7 @@ def getFunctionsFromlibrary(lib):
     for func in dir(lib):
         if not func.startswith("__"):
             funcCall = getattr(lib, func)
-            if callable(funcCall):
+            if callable(funcCall) and type(funcCall)==types.FunctionType:
                 Functlist.append(func)
                 
     return np.array(Functlist)
