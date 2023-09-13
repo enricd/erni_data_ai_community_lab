@@ -26,10 +26,10 @@ def main():
 
     # --- Side Bar ---
     with st.sidebar:
-        openai_api_key = os.getenv("OPENAI_API_KEY") if os.getenv("OPENAI_API_KEY") is not None else ""  # only for development environment, otherwise it should return None
+        openai_api_key = os.getenv("OPENAI_API") if os.getenv("OPENAI_API") is not None else ""  # only for development environment, otherwise it should return None
         user_api_key = st.text_input("Introduce your OpenAI API Key", value=openai_api_key, type="password")
         if user_api_key != "":
-            openai_api_key = user_api_key
+            openai.api_key = user_api_key
 
         model = st.selectbox("Select a model:", ["gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"], index=0)
         encoding = tiktoken.encoding_for_model(model)
@@ -54,9 +54,6 @@ def main():
 
     # --- Main Page ---
     st.markdown("<h1 style='text-align: center;'>🤖💬 <em>LLM Chatbot</em></h1>", unsafe_allow_html=True)
-
-
-    openai.api_key = os.getenv("OPENAI_API_KEY")
 
     if "openai_model" not in st.session_state:
         st.session_state["openai_model"] = model
