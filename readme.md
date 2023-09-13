@@ -31,7 +31,7 @@ If you are from the ERNI Data and AI Community and you want to be a regular Cont
     
 6. At any moment you can test your app by running the Streamlit server locally:
     
-        - $ streamlit run 🧪_Home.py 
+        - $ streamlit run ./0_🧪_Home.py 
 
         (you need to be in the root folder of the project: 
         path/to/the/project/erni_data_ai_community_lab/)
