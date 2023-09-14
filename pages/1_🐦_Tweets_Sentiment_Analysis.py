@@ -36,7 +36,7 @@ def main():
     # --- Main Page ---
     st.header("🐦 Tweets Sentiment Analysis")
 
-    st.subheader("(🚧 Under Construction... 🚧)")
+    st.subheader("⚠️ No longer working due to new Twitter API conditions :( ⚠️")
 
     tabs = st.tabs(["📄 Info", "🤖 Model", "📊 EDA"])
 

@@ -4,5 +4,6 @@ __pycache__
 secrets*
 venv310/
 .idea/
+.env
 
 
