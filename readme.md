@@ -31,10 +31,14 @@ If you are from the ERNI Data and AI Community and you want to be a regular Cont
     
 6. At any moment you can test your app by running the Streamlit server locally:
     
-        - $ streamlit run 🧪_Home.py 
+        - $ streamlit run ./0_🧪_Home.py 
 
         (you need to be in the root folder of the project: 
         path/to/the/project/erni_data_ai_community_lab/)
+
+7. When the app is finished and it's working from your branch running in your localhost, then you can merge it to the `dev` branch and push it to the remote repo. It will be automatically deployed in the dev environment: [https://erni-data-ai-lab-dev.streamlit.app/](https://erni-data-ai-lab-dev.streamlit.app/)
+
+8. If it didn't crash and it's working as expected, we can merge the `dev` branch to the `main` one and this will finally redeploy the app to the production environment: [https://erni-data-ai-lab.streamlit.app/](https://erni-data-ai-lab.streamlit.app/)
 
 Otherwise, if you only plan to do small changes or corrections/updates to some of the apps, you can collaborate by opening a Pull Request to the `dev` branch. To do it the steps are very similar as before: Fork the repo from the `dev` branch, do any change, push it to your github forked repo and start a PR. 
 
