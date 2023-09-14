@@ -27,7 +27,7 @@ def main():
     # --- Side Bar ---
     with st.sidebar:
         openai_api_key = os.getenv("OPENAI_API_KEY") if os.getenv("OPENAI_API_KEY") is not None else ""  # only for development environment, otherwise it should return None
-        user_api_key = st.text_input("Introduce your OpenAI API Key", value=openai_api_key, type="password")
+        user_api_key = st.text_input("Introduce your OpenAI API Key (https://platform.openai.com/)", value=openai_api_key, type="password")
         if user_api_key != "":
             openai.api_key = user_api_key
 
@@ -37,7 +37,7 @@ def main():
         if "tokens_count" not in st.session_state:
             st.session_state["tokens_count"] = {"prompt": 0, "completion": 0, "total": 0}
 
-        st.write("Tokens count:")
+        st.write("Session Tokens Count (aprox.):")
         tokens_count = st.empty()
         tokens_count.write(st.session_state.tokens_count)
 
@@ -74,8 +74,9 @@ def main():
             message_placeholder = st.empty()
             full_response = ""
 
+            # Requesting completion to the OpenAI API
             for response in openai.ChatCompletion.create(
-                    model = st.session_state["openai_model"],
+                    model=st.session_state["openai_model"],
                     messages=[
                         {"role": m["role"], "content": m["content"]}
                         for m in st.session_state.messages
@@ -89,7 +90,8 @@ def main():
             
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-        st.session_state.tokens_count["prompt"] += len(encoding.encode(prompt))
+        # Update tokens counter
+        st.session_state.tokens_count["prompt"] += sum([len(encoding.encode(m["role"] + m["content"])) + 4 for m in st.session_state.messages])
         st.session_state.tokens_count["completion"] += len(encoding.encode(full_response))
         st.session_state.tokens_count["total"] = st.session_state.tokens_count["prompt"] + st.session_state.tokens_count["completion"]
         tokens_count.write(st.session_state.tokens_count)
