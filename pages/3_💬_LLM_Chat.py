@@ -41,6 +41,11 @@ def main():
         tokens_count = st.empty()
         tokens_count.write(st.session_state.tokens_count)
 
+        st.button("Reset Conversation", 
+                  on_click=lambda: st.session_state.pop("messages", None) if "messages" in st.session_state and len(st.session_state.messages) > 0 else None,
+                  type="primary",
+                  )
+
         st.divider()
 
         st.sidebar.markdown("## Project Contributors:")
