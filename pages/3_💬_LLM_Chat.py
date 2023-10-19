@@ -48,10 +48,10 @@ def main():
 
         st.divider()
 
-        st.sidebar.markdown("## Project Contributors:")
+        st.markdown("## Project Contributors:")
         # Create a card for each contributor
         for contributor in ["enricd"]:  
-            st.sidebar.markdown(contributor_card(
+            st.markdown(contributor_card(
                 **lab_contributors[contributor],
                 ), 
                 unsafe_allow_html=True)
@@ -59,9 +59,6 @@ def main():
 
     # --- Main Page ---
     st.markdown("<h1 style='text-align: center;'>🤖💬 <em>LLM Chatbot</em></h1>", unsafe_allow_html=True)
-
-    if "openai_model" not in st.session_state:
-        st.session_state["openai_model"] = model
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -80,8 +77,9 @@ def main():
             full_response = ""
 
             # Requesting completion to the OpenAI API
+            print("model used:", model)
             for response in openai.ChatCompletion.create(
-                    model=st.session_state["openai_model"],
+                    model=model,
                     messages=[
                         {"role": m["role"], "content": m["content"]}
                         for m in st.session_state.messages
